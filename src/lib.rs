@@ -1,5 +1,5 @@
 use bevy::{
-    input::{mouse::MouseButtonInput, ElementState},
+    input::{mouse::MouseButtonInput, ButtonState},
     prelude::*,
 };
 
@@ -53,10 +53,10 @@ fn click_detector(
         for (button, duration, mut press_time) in query.iter_mut() {
             if button.0 == ev.button {
                 match ev.state {
-                    ElementState::Pressed => {
+                    ButtonState::Pressed => {
                         press_time.0 = time.seconds_since_startup();
                     }
-                    ElementState::Released => {
+                    ButtonState::Released => {
                         if (time.seconds_since_startup() - press_time.0) <= duration.0 {
                             click_ev.send(ClickEvent { button: button.0 });
                         }
